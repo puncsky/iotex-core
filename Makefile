@@ -169,6 +169,11 @@ clean:
 	$(ECHO_V)find . -name $(TESTBED_COV_OUT) -delete
 	$(ECHO_V)$(GOCLEAN) -i $(PKGS)
 
+.PHONY: kill
+kill:
+	rm /var/data/*.db
+	pkill -9 -f standalone
+
 .PHONY: reboot
 reboot:
 	$(ECHO_V)rm -rf *chain*.db
@@ -186,6 +191,33 @@ run:
 	 sudo mkdir -p /var/data /var/log
 	 sudo chown ${USER} /var/data /var/log
 	./bin/$(BUILD_TARGET_SERVER) -plugin=gateway -config-path=./config/standalone-config.yaml -genesis-path=./config/standalone-genesis.yaml
+
+.PHONY: run1
+run1:
+	./bin/$(BUILD_TARGET_SERVER) -plugin=gateway -config-path=./config/standalone-config.yaml -genesis-path=./config/standalone-genesis.yaml
+
+.PHONY: run2
+run2:
+	./bin/$(BUILD_TARGET_SERVER) -plugin=gateway -config-path=./config/standalone-config2.yaml -genesis-path=./config/standalone-genesis.yaml
+
+.PHONY: run3
+run3:
+	./bin/$(BUILD_TARGET_SERVER) -plugin=gateway -config-path=./config/standalone-config3.yaml -genesis-path=./config/standalone-genesis.yaml
+
+.PHONY: run4
+run4:
+	./bin/$(BUILD_TARGET_SERVER) -plugin=gateway -config-path=./config/standalone-config4.yaml -genesis-path=./config/standalone-genesis.yaml
+
+
+.PHONY: run5
+run5:
+	./bin/$(BUILD_TARGET_SERVER) -plugin=gateway -config-path=./config/standalone-config5.yaml -genesis-path=./config/standalone-genesis.yaml
+
+.PHONY: run6
+run6:
+	./bin/$(BUILD_TARGET_SERVER) -plugin=gateway -config-path=./config/standalone-config6.yaml -genesis-path=./config/standalone-genesis.yaml
+
+
 
 .PHONY: docker
 docker:

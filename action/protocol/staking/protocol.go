@@ -9,7 +9,10 @@ package staking
 import (
 	"context"
 	"encoding/hex"
+	"fmt"
 	"math/big"
+	"os"
+	"runtime"
 	"time"
 
 	"github.com/pkg/errors"
@@ -515,4 +518,16 @@ func (p *Protocol) settleAction(
 	}
 	r.AddLogs(logs...).AddTransactionLogs(depositLog).AddTransactionLogs(tLogs...)
 	return &r, nil
+}
+
+func printStack() {
+	buf := make([]byte, 1024)
+	for {
+		n := runtime.Stack(buf, false)
+		if n < len(buf) {
+			fmt.Fprintf(os.Stderr, "Current Goroutine Stack:\n%s\n", buf[:n])
+			return
+		}
+		buf = make([]byte, 2*len(buf))
+	}
 }

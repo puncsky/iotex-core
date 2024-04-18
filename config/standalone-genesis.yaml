@@ -1,9 +1,74 @@
 account:
   initBalances:
-    # overwrite with your test address
-    io1mflp9m6hcgm2qcghchsdqj3z3eccrnekx9p0ms: "100000000000000000000000000000000000"
+    TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS: "1000000000000000000000000000"
+    TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS: "1000000000000000000000000000"
+    TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS: "1000000000000000000000000000"
+    TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS: "1000000000000000000000000000"
+    TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS: "1000000000000000000000000000"
+    TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS: "1000000000000000000000000000"
 blockchain:
-  blockInterval: 5s
+  actionGasLimit: 5000000
+  blockGasLimit: 20000000
+  blockInterval: 10s
+  numCandidateDelegates: 6 #
+  numDelegates: 4 #
   numSubEpochs: 15
   timeBasedRotation: true
-  # overwrite heights for testing needs
+  timestamp: 1713286604
+  pacificHeight: 1
+  aleutianHeight: 1
+  beringHeight: 1
+  cookHeight: 1
+  dardanellesHeight: 1
+  daytonaBlockHeight: 1
+  easterHeight: 1
+  fbkMigrationHeight: 1
+  fairbankHeight: 1
+  greenlandHeight: 1
+  hawaiiHeight: 1
+  icelandHeight: 1
+  jutlandHeight: 1
+  kamchatkaHeight: 1
+  lordHoweHeight: 1
+  midwayHeight: 1
+
+poll:
+  pollMode: native
+  delegates:
+    - operatorAddr: TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS
+      rewardAddr: TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS
+      votes: "40000000000000000000000000"
+    - operatorAddr: TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS
+      rewardAddr: TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS
+      votes: "40000000000000000000000000"
+    - operatorAddr: TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS
+      rewardAddr: TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS
+      votes: "40000000000000000000000000"
+    - operatorAddr: TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS
+      rewardAddr: TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS
+      votes: "40000000000000000000000000"
+    - operatorAddr: TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS
+      rewardAddr: TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS
+      votes: "40000000000000000000000000"
+    - operatorAddr: TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS
+      rewardAddr: TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS
+      votes: "40000000000000000000000000"
+  enableGravityChainVoting: false
+  gravityChainHeightInterval: 100
+  gravityChainStartHeight: 7614500
+  registerContractAddress: 0x95724986563028deb58f15c5fac19fa09304f32d
+  scoreThreshold: "2000000000000000000000000"
+  selfStakingThreshold: "1200000000000000000000000"
+  stakingContractAddress: 0x87c9dbff0016af23f5b1ab9b8e072124ab729193
+  voteThreshold: "100000000000000000000"
+  nativeStakingContractAddress: io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza
+rewarding:
+  blockReward: "16000000000000000000"
+  epochReward: "12500000000000000000000"
+  exemptAddrsFromEpochReward: []
+  foundationBonus: "80000000000000000000"
+  foundationBonusLastEpoch: 8760
+  initBalance: "200000000000000000000000000"
+  numDelegatesForEpochReward: 100
+  numDelegatesForFoundationBonus: 6 #
+  productivityThreshold: 85

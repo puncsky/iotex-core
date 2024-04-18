@@ -2,7 +2,10 @@ package poll
 
 import (
 	"context"
+	"fmt"
 	"math/big"
+	"os"
+	"runtime"
 	"time"
 
 	"github.com/iotexproject/go-pkgs/hash"
@@ -15,11 +18,12 @@ import (
 )
 
 type nativeStakingV2 struct {
-	addr           address.Address
-	stakingV2      *staking.Protocol
-	candIndexer    *CandidateIndexer
-	slasher        *Slasher
-	scoreThreshold *big.Int
+	addr             address.Address
+	stakingV2        *staking.Protocol
+	candIndexer      *CandidateIndexer
+	slasher          *Slasher
+	scoreThreshold   *big.Int
+	genesisDelegates *state.CandidateList
 }
 
 func newNativeStakingV2(
@@ -27,6 +31,7 @@ func newNativeStakingV2(
 	sh *Slasher,
 	scoreThreshold *big.Int,
 	stkV2 *staking.Protocol,
+	genesisDelegates *state.CandidateList,
 ) (Protocol, error) {
 	h := hash.Hash160b([]byte(protocolID))
 	addr, err := address.FromBytes(h[:])
@@ -35,11 +40,12 @@ func newNativeStakingV2(
 	}
 
 	return &nativeStakingV2{
-		addr:           addr,
-		stakingV2:      stkV2,
-		candIndexer:    candIndexer,
-		slasher:        sh,
-		scoreThreshold: scoreThreshold,
+		addr:             addr,
+		stakingV2:        stkV2,
+		candIndexer:      candIndexer,
+		slasher:          sh,
+		scoreThreshold:   scoreThreshold,
+		genesisDelegates: genesisDelegates,
 	}, nil
 }
 
@@ -48,15 +54,13 @@ func (ns *nativeStakingV2) Start(ctx context.Context, sr protocol.StateReader) (
 }
 
 func (ns *nativeStakingV2) CreateGenesisStates(ctx context.Context, sm protocol.StateManager) error {
+	fmt.Println("CreateGenesisStatesCreateGenesisStatesCreateGenesisStates\n")
+	printStack()
 	if err := ns.slasher.CreateGenesisStates(ctx, sm, ns.candIndexer); err != nil {
 		return err
 	}
-	cands, err := ns.stakingV2.ActiveCandidates(ctx, sm, 0)
-	if err != nil {
-		return err
-	}
 	bcCtx := protocol.MustGetBlockchainCtx(ctx)
-	cands = ns.filterAndSortCandidatesByVoteScore(cands, bcCtx.Tip.Timestamp)
+	cands := ns.filterAndSortCandidatesByVoteScore(*ns.genesisDelegates, bcCtx.Tip.Timestamp)
 	return setCandidates(ctx, sm, ns.candIndexer, cands, uint64(1))
 }
 
@@ -150,4 +154,15 @@ func (ns *nativeStakingV2) filterAndSortCandidatesByVoteScore(list state.Candida
 		res = append(res, candidates[name])
 	}
 	return res
+}
+func printStack() {
+	buf := make([]byte, 1024)
+	for {
+		n := runtime.Stack(buf, false)
+		if n < len(buf) {
+			fmt.Fprintf(os.Stderr, "Current Goroutine Stack:\n%s\n", buf[:n])
+			return
+		}
+		buf = make([]byte, 2*len(buf))
+	}
 }

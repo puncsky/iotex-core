@@ -1,12 +1,21 @@
-
-system:
-  httpStatsPort: 4939
 network:
   # externalHost: SET YOUR EXTERNAL IP HERE (e.g., 12.34.56.78)
-  externalPort: 4689
-  port: 4689
+  externalPort: 3688
+  port: 3688
   bootstrapNodes:
     - /ip4/127.0.0.1/tcp/4689/p2p/12D3KooWBX8HJvuQ2wEabZ78Uo2oRuHySVB4ppMxFeB8DKF7jgRe
+
+
+api:
+  gasStation:
+    defaultGas: 5000000000000
+  web3port: 3345
+  port: 3333
+
+system:
+  httpStatsPort: 3933
+  httpAdminPort: 3119
+
 
 chain:
   id: 233333
@@ -14,12 +23,12 @@ chain:
   producerPrivKey: TODO_REPLACE_WITH_YOUR_OWN_SK_OR_ADDRESS
   # If you are a delegate, make sure producerPrivKey is the key for the operator address you have registered.
   # producerPrivKey: SET YOUR PRIVATE KEY HERE (e.g., 96f0aa5e8523d6a28dc35c927274be4e931e74eaa720b418735debfcbfe712b8)
-  chainDBPath: "/var/data/chain1.db"
-  trieDBPath: "/var/data/trie1.db"
-  indexDBPath: "/var/data/index1.db"
-  bloomfilterIndexDBPath: "/var/data/bloomfilter.index1.db"
-  candidateIndexDBPath: "/var/data/candidate.index1.db"
-  stakingIndexDBPath: "/var/data/staking.index1.db"
+  chainDBPath: "/var/data/chain3.db"
+  trieDBPath: "/var/data/trie3.db"
+  indexDBPath: "/var/data/index3.db"
+  bloomfilterIndexDBPath: "/var/data/bloomfilter.index3.db"
+  candidateIndexDBPath: "/var/data/candidate.index3.db"
+  stakingIndexDBPath: "/var/data/staking.index3.db"
   maxCacheSize: 1000
   committee:
     gravityChainAPIs:
@@ -29,7 +38,7 @@ chain:
     paginationSize: 255
     cacheSize: 1000
   gravityChainDB:
-    dbPath: "/var/data/poll1.db"
+    dbPath: "/var/data/poll3.db"
     numRetries: 8
 
 actPool:
@@ -38,10 +47,6 @@ actPool:
   maxNumActsPerPool: 32000
   maxGasLimitPerPool: 320000000
   actionExpiry: 5m
-
-api:
-  gasStation:
-    defaultGas: 5000000000000
 
 consensus:
   scheme: ROLLDPOS
@@ -53,7 +58,7 @@ consensus:
       acceptProposalEndorsementTTL: 2s
       acceptLockEndorsementTTL: 2s
     delay: 10s
-    consensusDBPath: "/var/data/consensus1.db"
+    consensusDBPath: "/var/data/consensus3.db"
 
 blockSync:
   interval: 10s
@@ -68,5 +73,5 @@ log:
     disableStacktrace: true
     outputPaths: ["stderr", "stdout"]
     errorOutputPaths: ["stderr", "stdout"]
-  stderrRedirectFile: /var/log/s1.log
+  stderrRedirectFile: /var/log/s3.log
   stdLogRedirect: true

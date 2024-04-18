@@ -210,7 +210,17 @@ func NewProtocol(
 	case _modeGovernanceMix:
 		return stakingV1, nil
 	case _modeNativeMix, _modeNative:
-		stakingV2, err := newNativeStakingV2(candidateIndexer, slasher, scoreThreshold, stakingProto)
+		genesisDelegates := make(state.CandidateList, len(cfg.Genesis.Delegates))
+		for i := range cfg.Genesis.Delegates {
+			genesisDelegates[i] = &state.Candidate{
+				Address:       cfg.Genesis.Delegates[i].OperatorAddrStr,
+				Votes:         cfg.Genesis.Delegates[i].Votes(),
+				RewardAddress: cfg.Genesis.Delegates[i].RewardAddrStr,
+				CanName:       []byte(cfg.Genesis.Delegates[i].OperatorAddrStr),
+			}
+		}
+
+		stakingV2, err := newNativeStakingV2(candidateIndexer, slasher, scoreThreshold, stakingProto, &genesisDelegates)
 		if err != nil {
 			return nil, err
 		}
